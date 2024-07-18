@@ -1,0 +1,331 @@
+/* src/styles.css */
+
+/* Reset default margins and set full height */
+html, body, #root {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Navbar styles */
+.navbar {
+    background-color: #333;
+    padding: 0.5rem;
+    height: 40px; /* Fixed height for navbar */
+}
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: left;
+}
+
+.navbar li {
+    margin: 0 1rem;
+}
+
+.navbar a {
+    color: black;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+    color: #4CAF50;
+}
+
+/* Main content layout */
+.page-container {
+    display: flex;
+    justify-content: space-around;
+    height: 100%; /* This will make it fill the available space */
+    padding: 10px;
+    box-sizing: border-box;
+    overflow: hidden; /* Prevent scrolling on the main container */
+}
+
+.column {
+    width: 48%;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Hide overflow on the column level */
+}
+
+.scrollable-list {
+    flex-grow: 1;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+    margin-bottom: 10px; /* Add some space for the button */
+}
+
+h1 {
+    text-align: right;
+    color: #333;
+    margin: 0.5rem 0;
+}
+
+.page-h1{
+    background-color: #264dfb;
+    padding: 12px;
+    margin: 0;
+    color: white;
+    h1{
+        margin: 0;
+        color: white;
+    }
+}
+h2 {
+    text-align: right;
+    color: #444;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+    margin-top: 0;
+}
+
+.scrollable-list {
+    flex-grow: 1;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    background-color: white;
+    margin: 5px 0;
+    padding: 8px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.city-item, .selected-city-item {
+    cursor: pointer;
+    text-align: right;
+}
+
+.city-item:hover {
+    background-color: #f0f0f0;
+}
+
+.selected-city-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.delete-button {
+    background-color: #ff4136;
+    padding: 4px 8px;
+    font-size: 12px;
+}
+
+.play-alarm-button {
+    margin-top: 10px;
+    width: 100%;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 8px 12px;
+    margin: 4px 0;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+}
+
+.alarm-item {
+    margin: 5px 0;
+    font-size: 20px;
+    text-align: center;
+    padding: 8px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.alarm-red {
+    background-color: #ffcccb; /* Light red */
+}
+
+.alarm-yellow {
+    background-color: #ffffa0; /* Light yellow */
+}
+
+.alarm-default {
+    background-color: white;
+}
+
+.clear-archive-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.clear-archive-button {
+    background-color: #ff4136;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.clear-archive-button:hover {
+    background-color: #ff1a1a;
+}
+
+.basic-multi-select {
+    margin-bottom: 10px;
+}
+
+.select__control {
+    border-radius: 4px;
+}
+
+.select__menu {
+    z-index: 2;
+}
+
+.training-page {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.filter-container {
+    padding: 10px;
+}
+
+.page-container {
+    display: flex;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    overflow: hidden;
+}
+
+.scrollable-list {
+    flex-grow: 1;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.alarm-item {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.alarm-item:last-child {
+    border-bottom: none;
+}
+
+/* Ensure the Select component doesn't overflow */
+.basic-multi-select {
+    z-index: 2;
+}
+
+.column {
+    width: 48%;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.scrollable-list {
+    flex-grow: 1;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+    margin-bottom: 10px; /* Add some space for the button */
+}
+
+.clear-archive-button {
+    background-color: #ff4136;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.clear-archive-button:hover {
+    background-color: #ff1a1a;
+}
+
+.clear-archive-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.remove-all-alarms-button {
+    background-color: #ff4136;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.remove-all-alarms-button:hover {
+    background-color: #ff1a1a;
+}
