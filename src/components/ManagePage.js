@@ -33,7 +33,6 @@ function ManagePage() {
         });
 
         if (citiesToTrigger.length === 0) {
-            alert('No cities selected that match the current region filter.');
             return;
         }
 
@@ -50,7 +49,6 @@ function ManagePage() {
             }
         });
 
-        alert(`Alarms triggered for ${citiesToTrigger.length} selected cities!`);
         setSelectedCities(selectedCities.filter(city => !citiesToTrigger.includes(city)));
     };
 
