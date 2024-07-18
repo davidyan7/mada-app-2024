@@ -53,15 +53,21 @@ function ManagePage() {
     };
 
     const handleRemoveAllAlarms = () => {
-        const alarmsRef = ref(db, 'alarms');
-        remove(alarmsRef)
-            .then(() => {
-                alert('All alarms have been removed from the database.');
-            })
-            .catch((error) => {
-                console.error("Error removing alarms: ", error);
-                alert('An error occurred while removing alarms.');
-            });
+        const isConfirmed = window.confirm('Are you sure you want to remove all alarms? This action cannot be undone.');
+
+        if (isConfirmed) {
+            const alarmsRef = ref(db, 'alarms');
+            remove(alarmsRef)
+                .then(() => {
+                    alert('All alarms have been removed from the database.');
+                })
+                .catch((error) => {
+                    console.error("Error removing alarms: ", error);
+                    alert('An error occurred while removing alarms.');
+                });
+        } else {
+            console.log('Alarm removal cancelled by user.');
+        }
     };
 
     const uniqueRegions = [...new Set(cities.map(city => city.MadaRegions))];
@@ -117,7 +123,7 @@ function ManagePage() {
                 />
                 <input
                     type="text"
-                    placeholder="Search cities..."
+                    placeholder="חיפוש"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="search-input"

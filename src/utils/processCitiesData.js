@@ -1,5 +1,3 @@
-// processCitiesData.js
-
 export function processCitiesData(jsonData) {
     return jsonData.features.map(feature => ({
         HEB_NAME: feature.properties.HEB_NAME,
@@ -13,6 +11,6 @@ export function processCitiesData(jsonData) {
         MIGUN_TIME: feature.properties.MIGUN_TIME,
         NAFA_NAME: feature.properties.NAFA_NAME,
         DIST_NAME: feature.properties.DIST_NAME,
-        MadaRegions: feature.properties.MadaRegions // First coordinate of the polygon
+        MadaRegions: feature.properties.MadaRegions === null ? "בדיקה" : feature.properties.MadaRegions
     }));
 }

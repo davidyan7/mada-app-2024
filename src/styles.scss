@@ -1,0 +1,283 @@
+/* src/styles.scss */
+
+// Variables
+$primary-color: #4CAF50;
+$danger-color: #ff4136;
+$navbar-bg: #333;
+$light-bg: #f0f0f0;
+$border-color: #ddd;
+$text-color: #333;
+$header-color: #444;
+
+// Mixins
+@mixin button-style($bg-color) {
+    background-color: $bg-color;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: darken($bg-color, 10%);
+    }
+
+    &:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
+    }
+}
+
+// Reset and base styles
+   html, body, #root {
+       margin: 0;
+       padding: 0;
+       height: 100%;
+       overflow: hidden;
+   }
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+// Navbar styles
+   .navbar {
+       background-color: $navbar-bg;
+       padding: 0.5rem;
+       height: 40px;
+
+       ul {
+           list-style-type: none;
+           margin: 0;
+           padding: 0;
+           display: flex;
+           justify-content: left;
+       }
+
+       li {
+           margin: 0 1rem;
+       }
+
+       a {
+           color: black;
+           text-decoration: none;
+           font-size: 1rem;
+           transition: color 0.3s ease;
+
+           &:hover {
+               color: $primary-color;
+           }
+       }
+   }
+
+// Main content layout
+   .page-container {
+       display: flex;
+       justify-content: space-around;
+       height: 100%;
+       padding: 10px;
+       box-sizing: border-box;
+       overflow: hidden;
+   }
+
+.column {
+    width: 48%;
+    background-color: $light-bg;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.scrollable-list {
+    flex-grow: 1;
+    overflow-y: auto;
+    border: 1px solid $border-color;
+    border-radius: 4px;
+    background-color: white;
+    margin-bottom: 10px;
+}
+
+// Typography
+   h1 {
+       text-align: right;
+       color: $text-color;
+       margin: 0.5rem 0;
+   }
+
+.page-h1 {
+    background-color: #264dfb;
+    padding: 12px;
+    margin: 0;
+    color: white;
+
+    h1 {
+        margin: 0;
+        color: white;
+    }
+}
+
+h2 {
+    text-align: right;
+    color: $header-color;
+    border-bottom: 2px solid $border-color;
+    padding-bottom: 5px;
+    margin-top: 0;
+}
+
+// List styles
+   ul {
+       list-style-type: none;
+       padding: 0;
+       margin: 0;
+   }
+
+li {
+    background-color: white;
+    margin: 5px 0;
+    padding: 8px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.city-item, .selected-city-item {
+    cursor: pointer;
+    text-align: right;
+}
+
+.city-item:hover {
+    background-color: $light-bg;
+}
+
+.selected-city-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+// Button styles
+   button {
+       @include button-style($primary-color);
+   }
+
+.delete-button {
+    @include button-style($danger-color);
+    padding: 4px 8px;
+    font-size: 12px;
+}
+
+.play-alarm-button {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.clear-archive-button, .remove-all-alarms-button {
+    @include button-style($danger-color);
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+// Form styles
+   input[type="text"] {
+       width: 100%;
+       padding: 8px 12px;
+       margin: 4px 0;
+       box-sizing: border-box;
+       border: 2px solid #ccc;
+       border-radius: 4px;
+       text-align: right;
+
+   }
+
+// Alarm styles
+   .alarm-item {
+       margin: 5px 0;
+       font-size: 20px;
+       text-align: center;
+       padding: 8px;
+       border-radius: 4px;
+       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+       &.alarm-red {
+           background-color: #ffcccb;
+       }
+
+       &.alarm-yellow {
+           background-color: #ffffa0;
+       }
+
+       &.alarm-default {
+           background-color: white;
+       }
+   }
+
+// Select component styles
+   .basic-multi-select {
+       margin-bottom: 10px;
+       z-index: 2;
+
+       .select__control {
+           border-radius: 4px;
+           text-align: right;
+       }
+
+       .select__menu {
+           z-index: 2;
+       }
+   }
+
+// Training page specific styles
+   .training-page {
+       display: flex;
+       flex-direction: column;
+       height: 100vh;
+
+       .filter-container {
+           padding: 10px;
+           padding-bottom: 0;
+           text-align: right;
+
+       }
+
+       .page-container {
+           display: flex;
+           flex-grow: 1;
+           overflow: hidden;
+       }
+
+       .column {
+           flex: 1;
+           display: flex;
+           flex-direction: column;
+           height: 81%;
+           padding: 10px;
+           overflow: hidden;
+       }
+
+       .scrollable-list {
+           flex-grow: 1;
+           overflow-y: auto;
+           border: 1px solid $border-color;
+           border-radius: 4px;
+           background-color: white;
+       }
+
+       .alarm-item {
+           padding: 10px;
+           border-bottom: 1px solid #eee;
+
+           &:last-child {
+               border-bottom: none;
+           }
+       }
+   }
