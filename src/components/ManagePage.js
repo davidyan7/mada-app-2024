@@ -87,6 +87,10 @@ function ManagePage() {
         return selectedRegions.length === 0 || selectedRegions.includes(cityData.MadaRegions);
     });
 
+    const handleClearSearch = () => {
+        setSearchTerm('');
+    };
+
     return (
         <div className="page-container">
             <div className="column">
@@ -121,13 +125,16 @@ function ManagePage() {
                     onChange={handleRegionChange}
                     placeholder="Filter by MadaRegions..."
                 />
-                <input
-                    type="text"
-                    placeholder="חיפוש"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="search-input"
-                />
+                <div className="search-input-container">
+                    <input
+                        type="text"
+                        placeholder="חיפוש"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="search-input"
+                    />
+                    <button onClick={handleClearSearch} className="clear-search-button">Clear</button>
+                </div>
                 <div className="scrollable-list">
                     <ul>
                         {filteredCities.map((city) => (

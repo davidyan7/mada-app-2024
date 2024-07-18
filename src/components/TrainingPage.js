@@ -57,7 +57,7 @@ function TrainingPage() {
             alarms.forEach((alarm) => {
                 if (alarm.isActive) {
                     const elapsedTime = Date.now() - alarm.timestamp;
-                    if (elapsedTime >= alarm.countdown * 1000) {
+                    if (elapsedTime >= 20000) { // 20 seconds
                         update(ref(db, `alarms/${alarm.id}`), { isActive: false });
                     }
                 }
@@ -107,10 +107,7 @@ function TrainingPage() {
                     <div className="scrollable-list">
                         {archivedAlarms.map((alarm) => (
                             <div key={alarm.id} className={`alarm-item ${getAlarmClass(alarm.countdown)}`}>
-                                <strong>{alarm.city}</strong>
-                                <br />
-                                {new Date(alarm.timestamp + alarm.countdown * 1000).toLocaleString()}
-                                <br />
+                                <strong>{new Date(alarm.timestamp).toLocaleTimeString()}      {alarm.city}</strong>
                             </div>
                         ))}
                     </div>
@@ -120,10 +117,7 @@ function TrainingPage() {
                     <div className="scrollable-list">
                         {activeAlarms.map((alarm) => (
                             <div key={alarm.id} className={`alarm-item ${getAlarmClass(alarm.countdown)}`}>
-                                <strong>{alarm.city}</strong>
-                                <br />
-                                {new Date(alarm.timestamp).toLocaleString()}
-                                <br />
+                                <strong>{new Date(alarm.timestamp).toLocaleTimeString()} {alarm.city}</strong>
                             </div>
                         ))}
                     </div>
@@ -135,4 +129,3 @@ function TrainingPage() {
 }
 
 export default TrainingPage;
-
