@@ -85,8 +85,16 @@ function TrainingPage() {
         return selectedRegions.length === 0 || (city && selectedRegions.includes(city.MadaRegions));
     });
 
-    const activeAlarms = filteredAlarms.filter(alarm => alarm.isActive);
-    const archivedAlarms = filteredAlarms.filter(alarm => !alarm.isActive);
+    // Sort alarms by timestamp in descending order (newest first)
+    const sortedAlarms = filteredAlarms.sort((a, b) => b.timestamp - a.timestamp);
+
+    const activeAlarms = sortedAlarms.filter(alarm => alarm.isActive);
+    const archivedAlarms = sortedAlarms.filter(alarm => !alarm.isActive);
+
+    const getCityMadaRegion = (cityName) => {
+        const city = cities.find(city => city.HEB_NAME === cityName);
+        return city ? city.MadaRegions : 'Unknown';
+    };
 
     return (
         <div className="training-page">
@@ -107,7 +115,9 @@ function TrainingPage() {
                     <div className="scrollable-list">
                         {archivedAlarms.map((alarm) => (
                             <div key={alarm.id} className={`alarm-item ${getAlarmClass(alarm.countdown)}`}>
-                                <strong>{new Date(alarm.timestamp).toLocaleTimeString()}      {alarm.city}</strong>
+                                <strong>
+                                    {new Date(alarm.timestamp).toLocaleTimeString()} {alarm.city} ({getCityMadaRegion(alarm.city)})
+                                </strong>
                             </div>
                         ))}
                     </div>
@@ -117,7 +127,9 @@ function TrainingPage() {
                     <div className="scrollable-list">
                         {activeAlarms.map((alarm) => (
                             <div key={alarm.id} className={`alarm-item ${getAlarmClass(alarm.countdown)}`}>
-                                <strong>{new Date(alarm.timestamp).toLocaleTimeString()} {alarm.city}</strong>
+                                <strong>
+                                    {new Date(alarm.timestamp).toLocaleTimeString()} {alarm.city} ({getCityMadaRegion(alarm.city)})
+                                </strong>
                             </div>
                         ))}
                     </div>
