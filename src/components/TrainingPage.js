@@ -10,14 +10,16 @@ function TrainingPage() {
     const [alarms, setAlarms] = useState([]);
     const [cities, setCities] = useState([]);
     const [selectedRegions, setSelectedRegions] = useState([]);
-    const audioRef = useRef(null);
+    const [isAudioInitialized, setIsAudioInitialized] = useState(false);
+    const audioContextRef = useRef(null);
+    const audioBufferRef = useRef(null);
     const previousAlarmsRef = useRef([]);
 
     useEffect(() => {
         const processedCities = processCitiesData(citiesJsonData);
         setCities(processedCities);
 
-        const alarmsRef = ref(db, 'alarms');
+        const alarmsRef = ref(db, 'alarms_test');
 
         const unsubscribe = onValue(alarmsRef, (snapshot) => {
             const data = snapshot.val();
@@ -38,8 +40,8 @@ function TrainingPage() {
                     }
                 );
 
-                if (newActiveAlarms.length > 0 && audioRef.current) {
-                    audioRef.current.play();
+                if (newActiveAlarms.length > 0 && isAudioInitialized) {
+                    playAlarmSound();
                 }
 
                 previousAlarmsRef.current = alarmList;
@@ -50,22 +52,47 @@ function TrainingPage() {
         });
 
         return () => unsubscribe();
-    }, [selectedRegions]);
+    }, [selectedRegions, isAudioInitialized]);
 
     useEffect(() => {
         const interval = setInterval(() => {
-            alarms.forEach((alarm) => {
-                if (alarm.isActive) {
-                    const elapsedTime = Date.now() - alarm.timestamp;
-                    if (elapsedTime >= 22000) { // 20 seconds
-                        update(ref(db, `alarms/${alarm.id}`), { isActive: false });
+            setAlarms(prevAlarms =>
+                prevAlarms.map(alarm => {
+                    if (alarm.isActive) {
+                        const elapsedTime = Date.now() - alarm.timestamp;
+                        if (elapsedTime >= 22000) { // 22 seconds
+                            update(ref(db, `alarms/${alarm.id}`), { isActive: false });
+                            return { ...alarm, isActive: false };
+                        }
                     }
-                }
-            });
+                    return alarm;
+                })
+            );
         }, 1000);
 
         return () => clearInterval(interval);
-    }, [alarms]);
+    }, []);
+
+    const initializeAudio = () => {
+        audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
+        fetch(alarmSound)
+            .then(response => response.arrayBuffer())
+            .then(arrayBuffer => audioContextRef.current.decodeAudioData(arrayBuffer))
+            .then(audioBuffer => {
+                audioBufferRef.current = audioBuffer;
+                setIsAudioInitialized(true);
+            })
+            .catch(error => console.error("Error loading audio:", error));
+    };
+
+    const playAlarmSound = () => {
+        if (audioContextRef.current && audioBufferRef.current) {
+            const source = audioContextRef.current.createBufferSource();
+            source.buffer = audioBufferRef.current;
+            source.connect(audioContextRef.current.destination);
+            source.start();
+        }
+    };
 
     const getAlarmClass = (countdown) => {
         if (countdown > 30) return 'alarm-yellow';
@@ -98,6 +125,11 @@ function TrainingPage() {
 
     return (
         <div className="training-page">
+            {!isAudioInitialized && (
+                <button onClick={initializeAudio} className="init-audio-button">
+                    Initialize Audio
+                </button>
+            )}
             <div className="filter-container">
                 <Select
                     isMulti
@@ -135,7 +167,6 @@ function TrainingPage() {
                     </div>
                 </div>
             </div>
-            <audio ref={audioRef} src={alarmSound} />
         </div>
     );
 }
