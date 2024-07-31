@@ -57,7 +57,7 @@ function TrainingPage() {
             alarms.forEach((alarm) => {
                 if (alarm.isActive) {
                     const elapsedTime = Date.now() - alarm.timestamp;
-                    if (elapsedTime >= 20000) { // 20 seconds
+                    if (elapsedTime >= 22000) { // 20 seconds
                         update(ref(db, `alarms/${alarm.id}`), { isActive: false });
                     }
                 }
