@@ -39,7 +39,7 @@ function ManagePage() {
         citiesToTrigger.forEach((cityName) => {
             const cityData = cities.find(city => city.HEB_NAME === cityName);
             if (cityData) {
-                const alarmRef = push(ref(db, 'alarms'));
+                const alarmRef = push(ref(db, 'alarms_test'));
                 set(alarmRef, {
                     city: cityName,
                     timestamp: Date.now(),
@@ -56,7 +56,7 @@ function ManagePage() {
         const isConfirmed = window.confirm('Are you sure you want to remove all alarms? This action cannot be undone.');
 
         if (isConfirmed) {
-            const alarmsRef = ref(db, 'alarms');
+            const alarmsRef = ref(db, 'alarms_test');
             remove(alarmsRef)
                 .then(() => {
                     alert('All alarms have been removed from the database.');

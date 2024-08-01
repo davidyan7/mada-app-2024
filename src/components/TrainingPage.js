@@ -19,7 +19,7 @@ function TrainingPage() {
         const processedCities = processCitiesData(citiesJsonData);
         setCities(processedCities);
 
-        const alarmsRef = ref(db, 'alarms');
+        const alarmsRef = ref(db, 'alarms_test');
 
         const unsubscribe = onValue(alarmsRef, (snapshot) => {
             const data = snapshot.val();
