@@ -58,12 +58,10 @@ function TrainingPage() {
         const interval = setInterval(() => {
             setAlarms(prevAlarms =>
                 prevAlarms.map(alarm => {
-                    if (alarm.isActive) {
-                        const elapsedTime = Date.now() - alarm.timestamp;
-                        if (elapsedTime >= 22000) { // 22 seconds
-                            update(ref(db, `alarms/${alarm.id}`), { isActive: false });
-                            return { ...alarm, isActive: false };
-                        }
+                    const elapsedTime = Date.now() - alarm.timestamp;
+                    if (alarm.isActive && elapsedTime >= 22000) { // 22 seconds
+                        update(ref(db, `alarms_test/${alarm.id}`), { isActive: false });
+                        return { ...alarm, isActive: false };
                     }
                     return alarm;
                 })
