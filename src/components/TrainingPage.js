@@ -19,7 +19,7 @@ function TrainingPage() {
         const processedCities = processCitiesData(citiesJsonData);
         setCities(processedCities);
 
-        const alarmsRef = ref(db, 'alarms_test');
+        const alarmsRef = ref(db, 'alarms_test1');
 
         const unsubscribe = onValue(alarmsRef, (snapshot) => {
             const data = snapshot.val();
@@ -60,7 +60,7 @@ function TrainingPage() {
                 prevAlarms.map(alarm => {
                     const elapsedTime = Date.now() - alarm.timestamp;
                     if (alarm.isActive && elapsedTime >= 22000) { // 22 seconds
-                        update(ref(db, `alarms_test/${alarm.id}`), { isActive: false });
+                        update(ref(db, `alarms_test1/${alarm.id}`), { isActive: false });
                         return { ...alarm, isActive: false };
                     }
                     return alarm;
